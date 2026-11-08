@@ -3,13 +3,17 @@ import { Menu } from "lucide-react"
 import { Logs } from "lucide-react"
 import { Laptop } from "lucide-react";
 import { Search } from "lucide-react";
-import { Funnel } from "lucide-react"
-import { CalendarDays } from "lucide-react"
-import photo1 from "./Photo/Neon Gaming Laptop on Rocky Ledge.png"
+import { Funnel } from "lucide-react";
+import { CalendarDays } from "lucide-react";
+import { Tag } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
+import photo1 from "./Photo/Neon Gaming Laptop on Rocky Ledge.png";
+import { use, useState } from "react";
 function Header() {
+    const [isopen, setIsopen] = useState<string | null>(null)
     return (
         <div className="w-full">
-            <header className="w-full flex items-center justify-between px-3">
+            <header className="w-full flex items-center justify-between px-3 py-3">
                 <div>
                     <p><UserRound size={26} /></p>
                 </div>
@@ -21,13 +25,13 @@ function Header() {
                     <p><Menu size={26} /></p>
                 </div>
             </header>
-            <div className="w-full relative mt-3 px-3">
-                <input type="text" placeholder="جستجو در لپتاب ها..." className="bg-gray-200 w-full rounded-lg py-1.5 px-12" />
+            <div className="w-full relative mt-0.5 px-3">
+                <input type="text" placeholder="جستجو در لپتاب ها..." className="bg-gray-200 w-full rounded-lg py-1.5 px-12 shadow-md" />
                 <p className="absolute top-2 right-5 text-gray-700"><Search size={19} /></p>
             </div>
             <div className="overflow-hidden relative mt-2.5 px-1">
                 <img src={photo1} alt="laptob-photos" className="rounded-2xl" />
-                <div className="flex flex-col gap-2 items-start absolute top-5 right-0 text-white px-3">
+                <div className="flex flex-col gap-2 items-start absolute top-10 right-0 text-white px-3">
                     <p className="bg-gradient-to-r from-blue-500 to-purple-600 text-xs font-medium px-2 py-1 rounded-2xl">
                         قدرت بیشتر، تجربه بهتر
                     </p>
@@ -45,11 +49,40 @@ function Header() {
                     </p>
                 </div>
             </div>
-            <div>
-                <button className="flex items-center gap-2 bg-blue-600 px-2 py-1.5 rounded-lg text-white text-sm"><Funnel size={18}/>اعمال فیلتر</button>
-                <select>
-                    <option value="" className="flex">سال<CalendarDays /></option>
-                </select>
+            <div className="relative flex flex-row-reverse items-center justify-between w-full h-full mt-4 px-2 sm:px-2">
+                <button className="flex items-center gap-2 sm:gap-1.5 bg-blue-600 px-3 py-2.5 rounded-xl text-white text-xs sm:text-xs shadow-md"><Funnel size={18} />اعمال فیلتر</button>
+                <div>
+                    <button onClick={(() => isopen === "year" ? setIsopen("") : setIsopen("year"))} className="flex items-center gap-1.5 sm:gap-2  text-xs sm:text-sm text-gray-700 bg-gray-100 px-3 py-2 rounded-xl shadow-md"><span className="text-gray-700"><CalendarDays size={21} /></span>سال</button>
+                    <div className="absolute flex flex-col items-center top-3/4 right-5">
+                        {isopen === "year" && (
+                            [2022, 2023, 2024, 2025].map((item, index) => (
+                                <p key={index}>{item}</p>
+                            ))
+                        )
+                        }
+                    </div>
+                </div>
+                <div className="relative">
+                    <button onClick={(() => isopen === "brand" ? setIsopen("") : setIsopen("brand"))} className="flex gap-1.5 sm:gap-2 items-center text-xs sm:text-sm text-gray-700 bg-gray-100 px-3 py-2 rounded-xl shadow-md"><span className="text-gray-700"><Tag size={18} /></span>برند</button>
+                    {isopen === "brand" && (
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 border border-gray-200 rounded-lg shadow-lg mt-2 px-3 py-2 ">
+                            {["ASUS", "Lenovo", "Dell", "HP", "Acer"].map((item, index) => (
+
+                                <p key={index} className="text-xs text-gray-700 transition-color transition-transform duration-300 hover:text-blue-600 active:scale-90">{item}</p>
+                            ))}
+                        </div>
+                    )}
+                </div>
+                <div>
+                    <button onClick={(() => isopen === "year" ? setIsopen("") : setIsopen("Sorting"))} className="flex items-center gap-1.5 bg-gray-100 text-gray-700 px-3 py-2 text-xs sm:text-sm rounded-xl shadow-md"><span>< ArrowUpDown size={18} /></span>مرتب سازی</button>
+                    <div>
+                        {isopen === "Sorting" && (
+                            ["oper", "lower"].map((item, index) => (
+                                <p key={index}>{item}</p>
+                            ))
+                        )}
+                    </div>
+                </div>
             </div>
         </div>
     )
