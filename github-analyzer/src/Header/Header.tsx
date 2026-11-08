@@ -3,6 +3,8 @@ import { Menu } from "lucide-react"
 import { Logs } from "lucide-react"
 import { Laptop } from "lucide-react";
 import { Search } from "lucide-react";
+import { Funnel } from "lucide-react"
+import { CalendarDays } from "lucide-react"
 import photo1 from "./Photo/Neon Gaming Laptop on Rocky Ledge.png"
 function Header() {
     return (
@@ -42,6 +44,12 @@ function Header() {
                         انتخاب هوشمندانه برای کار، بازی و یادگیری
                     </p>
                 </div>
+            </div>
+            <div>
+                <button className="flex items-center gap-2 bg-blue-600 px-2 py-1.5 rounded-lg text-white text-sm"><Funnel size={18}/>اعمال فیلتر</button>
+                <select>
+                    <option value="" className="flex">سال<CalendarDays /></option>
+                </select>
             </div>
         </div>
     )
