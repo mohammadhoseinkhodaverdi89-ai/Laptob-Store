@@ -26,7 +26,7 @@ function Header() {
                 </div>
             </header>
             <div className="w-full relative mt-0.5 px-3">
-                <input type="text" placeholder="جستجو در لپتاب ها..." className="bg-gray-200 w-full rounded-lg py-1.5 px-12 shadow-md" />
+                <input type="text" placeholder="جستجو در لپتاب ها..." className="bg-gray-200 w-full rounded-lg py-1.5 px-12 shadow-md outline-none " />
                 <p className="absolute top-2 right-5 text-gray-700"><Search size={19} /></p>
             </div>
             <div className="overflow-hidden relative mt-2.5 px-1">
@@ -51,16 +51,15 @@ function Header() {
             </div>
             <div className="relative flex flex-row-reverse items-center justify-between w-full h-full mt-4 px-2 sm:px-2">
                 <button className="flex items-center gap-2 sm:gap-1.5 bg-blue-600 px-3 py-2.5 rounded-xl text-white text-xs sm:text-xs shadow-md"><Funnel size={18} />اعمال فیلتر</button>
-                <div>
+                <div className="relative">
                     <button onClick={(() => isopen === "year" ? setIsopen("") : setIsopen("year"))} className="flex items-center gap-1.5 sm:gap-2  text-xs sm:text-sm text-gray-700 bg-gray-100 px-3 py-2 rounded-xl shadow-md"><span className="text-gray-700"><CalendarDays size={21} /></span>سال</button>
-                    <div className="absolute flex flex-col items-center top-3/4 right-5">
                         {isopen === "year" && (
-                            [2022, 2023, 2024, 2025].map((item, index) => (
-                                <p key={index}>{item}</p>
-                            ))
-                        )
-                        }
-                    </div>
+                        <div className="absolute -translate-x-1/2 left-1/2 top-full flex flex-col gap-1 border border-gray-200 mt-2 px-3 py-2 rounded-xl shadow-lg">
+                            {[2022, 2023, 2024, 2025].map((item,index) => (
+                                <p key={index} className="text-xs text-gray-700 transition-all duration-300 hover:text-blue-600 hover:scale-105 active:scale-90">{item}</p>
+                            ))}
+                        </div>
+                        )} 
                 </div>
                 <div className="relative">
                     <button onClick={(() => isopen === "brand" ? setIsopen("") : setIsopen("brand"))} className="flex gap-1.5 sm:gap-2 items-center text-xs sm:text-sm text-gray-700 bg-gray-100 px-3 py-2 rounded-xl shadow-md"><span className="text-gray-700"><Tag size={18} /></span>برند</button>
@@ -68,18 +67,20 @@ function Header() {
                         <div className="absolute top-full left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 border border-gray-200 rounded-lg shadow-lg mt-2 px-3 py-2 ">
                             {["ASUS", "Lenovo", "Dell", "HP", "Acer"].map((item, index) => (
 
-                                <p key={index} className="text-xs text-gray-700 transition-color transition-transform duration-300 hover:text-blue-600 active:scale-90">{item}</p>
+                                <p key={index} className="text-xs text-gray-700 transition-color transition-transform duration-300 hover:text-blue-600 hover:scale-95 active:scale-90">{item}</p>
                             ))}
                         </div>
                     )}
                 </div>
-                <div>
-                    <button onClick={(() => isopen === "year" ? setIsopen("") : setIsopen("Sorting"))} className="flex items-center gap-1.5 bg-gray-100 text-gray-700 px-3 py-2 text-xs sm:text-sm rounded-xl shadow-md"><span>< ArrowUpDown size={18} /></span>مرتب سازی</button>
+                <div className="relative">
+                    <button onClick={(() => isopen === "Sorting" ? setIsopen("") : setIsopen("Sorting"))} className="flex items-center gap-1.5 bg-gray-100 text-gray-700 px-3 py-2 text-xs sm:text-sm rounded-xl shadow-md"><span>< ArrowUpDown size={18} /></span>مرتب سازی</button>
                     <div>
                         {isopen === "Sorting" && (
-                            ["oper", "lower"].map((item, index) => (
-                                <p key={index}>{item}</p>
-                            ))
+                            <div className="absolute top-full -translate-x-1/2 left-1/2 w-full   mt-2 px-3 py-2 border border-gray-200 flex flex-col gap-1 rounded-xl">
+                                {["از پایین به بالا", "از بالا به پایین"].map((item,index) => (
+                                    <p key={index} className="text-xs text-gray-700 transition-all duration-300 hover:text-blue-600 hover:scale-105 active:scale-95">{item}</p>
+                                )) }
+                            </div>
                         )}
                     </div>
                 </div>
