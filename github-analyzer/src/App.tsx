@@ -1,13 +1,15 @@
 import Header from "./Header/Header"
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, type LinkProps } from 'react-router-dom'
 import { useState } from "react"
 import { laptops } from "./dataBase"
 import { Filter } from "lucide-react"
 import Productfilter from "./Header/Productfilter"
 
-function App() {
-  const [input, setInput] = useState<string>("")
+type LaptonInterface = typeof laptops
 
+function App() {
+  const [input, setInput] = useState("")
+  const [filter,setFilter] = useState<LaptonInterface>(laptops)
     const Allfilter = () => (
     [...laptops].filter((item) => {
       const filterInput = item.model.toLowerCase().includes(input.toLowerCase())
@@ -23,6 +25,9 @@ function App() {
             <Header
             input={input}
             setInput={setInput}
+            filter={filter}
+            setFilter={setFilter}
+            Allfilter={Allfilter}
           />
          <Productfilter Allfilter={Allfilter}/>
          </>

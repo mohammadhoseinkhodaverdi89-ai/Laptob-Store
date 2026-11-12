@@ -8,12 +8,19 @@ import { CalendarDays } from "lucide-react";
 import { Tag } from "lucide-react";
 import { ArrowUpDown } from "lucide-react";
 import photo1 from "./Photo/Neon Gaming Laptop on Rocky Ledge.png";
-import { useState } from "react";
+import React, { useState } from "react";
+import type { laptops } from "../dataBase";
+type Laptob = typeof laptops
 interface headerProps {
     input : string
     setInput: React.Dispatch<React.SetStateAction<string>>
+
+    filter : Laptob
+    setFilter : React.Dispatch<React.SetStateAction<Laptob>>
+
+    Allfilter : Laptob
 }
-function Header({input,setInput} : headerProps) {
+function Header({input,setInput,filter,setFilter,Allfilter} : headerProps) {
     const [isopen, setIsopen] = useState<string | null>(null)
     return (
         <div className="w-full">
@@ -54,7 +61,7 @@ function Header({input,setInput} : headerProps) {
                 </div>
             </div>
             <div className="relative flex flex-row-reverse items-center justify-between w-full h-full mt-4 px-2 sm:px-2">
-                <button className="flex items-center gap-2 sm:gap-1.5 bg-blue-600 px-3 py-2.5 rounded-xl text-white text-xs sm:text-xs shadow-md"><Funnel size={18} />اعمال فیلتر</button>
+                <button className="flex items-center gap-2 sm:gap-1.5 bg-blue-600 px-3 py-2.5 rounded-xl text-white text-xs sm:text-xs shadow-md" onClick={setFilter(Allfilter)}><Funnel size={18} />اعمال فیلتر</button>
                 <div className="relative">
                     <button onClick={(() => isopen === "year" ? setIsopen("") : setIsopen("year"))} className="flex items-center gap-1.5 sm:gap-2  text-xs sm:text-sm text-gray-700 bg-gray-100 px-3 py-2 rounded-xl shadow-md"><span className="text-gray-700"><CalendarDays size={21} /></span>سال</button>
                         {isopen === "year" && (
