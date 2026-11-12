@@ -8,8 +8,12 @@ import { CalendarDays } from "lucide-react";
 import { Tag } from "lucide-react";
 import { ArrowUpDown } from "lucide-react";
 import photo1 from "./Photo/Neon Gaming Laptop on Rocky Ledge.png";
-import { use, useState } from "react";
-function Header() {
+import { useState } from "react";
+interface headerProps {
+    input : string
+    setInput: React.Dispatch<React.SetStateAction<string>>
+}
+function Header({input,setInput} : headerProps) {
     const [isopen, setIsopen] = useState<string | null>(null)
     return (
         <div className="w-full">
@@ -26,7 +30,7 @@ function Header() {
                 </div>
             </header>
             <div className="w-full relative mt-0.5 px-3">
-                <input type="text" placeholder="جستجو در لپتاب ها..." className="bg-gray-200 w-full rounded-lg py-1.5 px-12 shadow-md outline-none " />
+                <input type="text" placeholder="جستجو در لپتاب ها..." className="bg-gray-200 w-full rounded-lg py-1.5 px-12 shadow-md outline-none " value={input ?? ""} onChange={((e : React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value))} />
                 <p className="absolute top-2 right-5 text-gray-700"><Search size={19} /></p>
             </div>
             <div className="overflow-hidden relative mt-2.5 px-1">
