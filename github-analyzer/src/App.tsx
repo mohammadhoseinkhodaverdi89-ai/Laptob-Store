@@ -9,10 +9,11 @@ type LaptonInterface = typeof laptops
 
 function App() {
   const [input, setInput] = useState("")
-  const [filter,setFilter] = useState<LaptonInterface>(laptops)
+  const [filtered,setFiltered] = useState<LaptonInterface>(laptops)
     const Allfilter = () => (
-    [...laptops].filter((item) => {
+    [...filtered].filter((item) => {
       const filterInput = item.model.toLowerCase().includes(input.toLowerCase())
+      setInput("")
       return filterInput
     })
   )
@@ -25,13 +26,13 @@ function App() {
             <Header
             input={input}
             setInput={setInput}
-            filter={filter}
-            setFilter={setFilter}
+            filter={filtered}
+            setFilter={setFiltered}
             Allfilter={Allfilter}
           />
-         <Productfilter Allfilter={Allfilter}/>
          </>
           } />
+          <Route path="/filter" element={<Productfilter filtered={filtered} />}/>
         </Routes>
       </BrowserRouter>
     </div>

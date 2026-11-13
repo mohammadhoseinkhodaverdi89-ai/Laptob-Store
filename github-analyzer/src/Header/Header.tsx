@@ -9,22 +9,27 @@ import { Tag } from "lucide-react";
 import { ArrowUpDown } from "lucide-react";
 import photo1 from "./Photo/Neon Gaming Laptop on Rocky Ledge.png";
 import React, { useState } from "react";
-import type { laptops } from "../dataBase";
+import { laptops } from "../dataBase";
+import { Link } from "react-router-dom"
+import Productfilter from "./Productfilter"
+import { useNavigate } from "react-router-dom";
+
 type Laptob = typeof laptops
 interface headerProps {
     input : string
     setInput: React.Dispatch<React.SetStateAction<string>>
 
-    filter : Laptob
-    setFilter : React.Dispatch<React.SetStateAction<Laptob>>
+    filtered : Laptob
+    setFiltered : React.Dispatch<React.SetStateAction<Laptob>>
 
     Allfilter : Laptob
 }
 function Header({input,setInput,filter,setFilter,Allfilter} : headerProps) {
     const [isopen, setIsopen] = useState<string | null>(null)
+    const navigate = useNavigate()
     return (
         <div className="w-full">
-            <header className="w-full flex items-center justify-between px-3 py-3">
+            <header className="w-[calc(100%-10px)] flex items-center justify-between px-3 py-3 fixed top-2 z-50 bg-gray-200/60 backdrop-blur-xl shadow-2xl rounded-xl left-1/2 -translate-x-1/2 border border-gray-300">
                 <div>
                     <p><UserRound size={26} /></p>
                 </div>
@@ -36,13 +41,13 @@ function Header({input,setInput,filter,setFilter,Allfilter} : headerProps) {
                     <p><Menu size={26} /></p>
                 </div>
             </header>
-            <div className="w-full relative mt-0.5 px-3">
+            <div className="w-full relative mt-17 px-2">
                 <input type="text" placeholder="جستجو در لپتاب ها..." className="bg-gray-200 w-full rounded-lg py-1.5 px-12 shadow-md outline-none " value={input ?? ""} onChange={((e : React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value))} />
                 <p className="absolute top-2 right-5 text-gray-700"><Search size={19} /></p>
             </div>
             <div className="overflow-hidden relative mt-2.5 px-1">
                 <img src={photo1} alt="laptob-photos" className="rounded-2xl" />
-                <div className="flex flex-col gap-2 items-start absolute top-10 right-0 text-white px-3">
+                <div className="flex flex-col gap-2 items-start absolute -translate-y-1/2 top-1/2 right-0 text-white px-3">
                     <p className="bg-gradient-to-r from-blue-500 to-purple-600 text-xs font-medium px-2 py-1 rounded-2xl">
                         قدرت بیشتر، تجربه بهتر
                     </p>
@@ -61,7 +66,10 @@ function Header({input,setInput,filter,setFilter,Allfilter} : headerProps) {
                 </div>
             </div>
             <div className="relative flex flex-row-reverse items-center justify-between w-full h-full mt-4 px-2 sm:px-2">
-                <button className="flex items-center gap-2 sm:gap-1.5 bg-blue-600 px-3 py-2.5 rounded-xl text-white text-xs sm:text-xs shadow-md" onClick={setFilter(Allfilter)}><Funnel size={18} />اعمال فیلتر</button>
+                <button className="flex items-center gap-2 sm:gap-1.5 bg-blue-600 px-3 py-2.5 rounded-xl text-white text-xs sm:text-xs shadow-md" onClick={() => {
+                    setFilter(Allfilter);
+                    navigate("/filter")
+                }}><Funnel size={18}/>اعمال فیلتر</button>
                 <div className="relative">
                     <button onClick={(() => isopen === "year" ? setIsopen("") : setIsopen("year"))} className="flex items-center gap-1.5 sm:gap-2  text-xs sm:text-sm text-gray-700 bg-gray-100 px-3 py-2 rounded-xl shadow-md"><span className="text-gray-700"><CalendarDays size={21} /></span>سال</button>
                         {isopen === "year" && (

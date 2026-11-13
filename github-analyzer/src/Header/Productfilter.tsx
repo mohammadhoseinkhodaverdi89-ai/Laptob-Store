@@ -1,14 +1,14 @@
 import { laptops } from "../dataBase";
 type Laptobs = typeof laptops
 interface propsFilter {
-    Allfilter : () => Laptobs[]
+    filtered : Laptobs
 }
 
-function Filter({Allfilter}:propsFilter) {
+function Filter({filtered}):propsFilter {
     return(
         <div>
-            {laptops.map((item,index) => (
-                <div key={index}>
+            {filtered.map((item) => (
+                <div key={item.id}>
                     <p>{item.model}</p>
                 </div>
             ))}
