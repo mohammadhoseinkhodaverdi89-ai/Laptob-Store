@@ -8,10 +8,9 @@ import { CalendarDays } from "lucide-react";
 import { Tag } from "lucide-react";
 import { ArrowUpDown } from "lucide-react";
 import photo1 from "./Photo/Neon Gaming Laptop on Rocky Ledge.png";
-import React, { useState } from "react";
+import photo2 from "./Photo/Mylove.jpg"
+import React, { useEffect, useState } from "react";
 import { laptops } from "../dataBase";
-import { Link } from "react-router-dom"
-import Productfilter from "./Productfilter"
 import { useNavigate } from "react-router-dom";
 
 type Laptob = typeof laptops
@@ -26,7 +25,15 @@ interface headerProps {
 }
 function Header({input,setInput,filter,setFilter,Allfilter} : headerProps) {
     const [isopen, setIsopen] = useState<string | null>(null)
+    const [count,setCount] = useState<number>(0)
     const navigate = useNavigate()
+    const photos = [photo1,photo2]
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCount(() => count + 1)
+        },3000)
+    },[])
     return (
         <div className="w-full">
             <header className="w-[calc(100%-10px)] flex items-center justify-between px-3 py-3 fixed top-2 z-50 bg-gray-200/60 backdrop-blur-xl shadow-2xl rounded-xl left-1/2 -translate-x-1/2 border border-gray-300">
@@ -46,7 +53,7 @@ function Header({input,setInput,filter,setFilter,Allfilter} : headerProps) {
                 <p className="absolute top-2 right-5 text-gray-700"><Search size={19} /></p>
             </div>
             <div className="overflow-hidden relative mt-2.5 px-1">
-                <img src={photo1} alt="laptob-photos" className="rounded-2xl" />
+                <img src={photos[count]} alt="laptob-photos" className="rounded-2xl aspect-video" />
                 <div className="flex flex-col gap-2 items-start absolute -translate-y-1/2 top-1/2 right-0 text-white px-3">
                     <p className="bg-gradient-to-r from-blue-500 to-purple-600 text-xs font-medium px-2 py-1 rounded-2xl">
                         قدرت بیشتر، تجربه بهتر
