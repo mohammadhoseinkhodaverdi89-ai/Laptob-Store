@@ -1,6 +1,5 @@
 import { UserRound } from "lucide-react";
 import { Menu } from "lucide-react"
-import { Logs } from "lucide-react"
 import { Laptop } from "lucide-react";
 import { Search } from "lucide-react";
 import { Funnel } from "lucide-react";
@@ -9,25 +8,25 @@ import { Tag } from "lucide-react";
 import { ArrowUpDown } from "lucide-react";
 import photo1 from "./Photo/Neon Gaming Laptop on Rocky Ledge.png";
 import photo2 from "./Photo/Mylove.jpg"
-import React, { useEffect, useState, type SetStateAction } from "react";
+import React, { useEffect, useState } from "react";
 import { laptops } from "../dataBase";
 import { useNavigate } from "react-router-dom";
 
 type Laptob = typeof laptops
 interface headerProps {
-    input: string
-    setInput: React.Dispatch<React.SetStateAction<string>>
+    input: string | null
+    setInput: React.Dispatch<React.SetStateAction<string | null>>
 
     filtered: Laptob
     setFiltered: React.Dispatch<React.SetStateAction<Laptob>>
 
     Allfilter: Laptob
 
-    year: number
-    setYear: React.Dispatch<React.SetStateAction<number>>
+    year: number | null
+    setYear: React.Dispatch<React.SetStateAction<number | null>>
 
-    brand : string
-    setBrand : React.Dispatch<React.SetStateAction<string>>
+    brand : string | null
+    setBrand : React.Dispatch<React.SetStateAction<string | null>>
 
     order: string
     setOrder : React.Dispatch<React.SetStateAction<string>>
