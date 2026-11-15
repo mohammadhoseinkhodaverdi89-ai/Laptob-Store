@@ -45,6 +45,7 @@ function App() {
             setBrand={setBrand}
             order={order}
             setOrder={setOrder}
+            Allfilter={Allfilter}
           />
           <Footer />
          </>

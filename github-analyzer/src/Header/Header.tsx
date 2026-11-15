@@ -20,7 +20,7 @@ interface headerProps {
     filtered: Laptob
     setFiltered: React.Dispatch<React.SetStateAction<Laptob>>
 
-    Allfilter: Laptob
+    Allfilter: () => Laptob
 
     year: number | null
     setYear: React.Dispatch<React.SetStateAction<number | null>>
@@ -28,7 +28,7 @@ interface headerProps {
     brand : string | null
     setBrand : React.Dispatch<React.SetStateAction<string | null>>
 
-    order: string
+    order: string 
     setOrder : React.Dispatch<React.SetStateAction<string>>
 }
 function Header({ input, setInput, filtered, setFiltered, Allfilter, year, setYear ,brand , setBrand ,order,setOrder }: headerProps) {
