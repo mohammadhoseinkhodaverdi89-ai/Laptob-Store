@@ -15,28 +15,32 @@ import { useNavigate } from "react-router-dom";
 
 type Laptob = typeof laptops
 interface headerProps {
-    input : string
+    input: string
     setInput: React.Dispatch<React.SetStateAction<string>>
 
-    filtered : Laptob
-    setFiltered : React.Dispatch<React.SetStateAction<Laptob>>
+    filtered: Laptob
+    setFiltered: React.Dispatch<React.SetStateAction<Laptob>>
 
-    Allfilter : Laptob
+    Allfilter: Laptob
+
+    year:number
+    setYear:React.Dispatch<React.SetStateAction<number>>
 }
-function Header({input,setInput,filter,setFilter,Allfilter} : headerProps) {
+function Header({ input, setInput, filter, setFilter, Allfilter,year,setYear }: headerProps) {
     const [isopen, setIsopen] = useState<string | null>(null)
-    const [count,setCount] = useState<number>(0)
+    const [count, setCount] = useState<number>(0)
     const navigate = useNavigate()
-    const photos = [photo1,photo2]
+    const photos = [photo1, photo2]
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCount(() => count + 1)
-        },3000)
-    },[])
+            setCount((prev) => (prev + 1) % photos.length)
+        }, 3000)
+        return () => clearInterval(interval)
+    }, [])
     return (
         <div className="w-full">
-            <header className="w-[calc(100%-10px)] flex items-center justify-between px-3 py-3 fixed top-2 z-50 bg-gray-200/60 backdrop-blur-xl shadow-2xl rounded-xl left-1/2 -translate-x-1/2 border border-gray-300">
+            <header className="w-[100%] flex items-center justify-between px-3 py-3 fixed top-0 z-50  backdrop-blur-xl shadow-sm rounded-b-2xl border border-gray-300">
                 <div>
                     <p><UserRound size={26} /></p>
                 </div>
@@ -49,7 +53,7 @@ function Header({input,setInput,filter,setFilter,Allfilter} : headerProps) {
                 </div>
             </header>
             <div className="w-full relative mt-17 px-2">
-                <input type="text" placeholder="جستجو در لپتاب ها..." className="bg-gray-200 w-full rounded-lg py-1.5 px-12 shadow-md outline-none " value={input ?? ""} onChange={((e : React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value))} />
+                <input type="text" placeholder="جستجو در لپتاب ها..." className="bg-gray-200 w-full rounded-lg py-1.5 px-12 shadow-md outline-none " value={input ?? ""} onChange={((e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value))} />
                 <p className="absolute top-2 right-5 text-gray-700"><Search size={19} /></p>
             </div>
             <div className="overflow-hidden relative mt-2.5 px-1">
@@ -76,21 +80,21 @@ function Header({input,setInput,filter,setFilter,Allfilter} : headerProps) {
                 <button className="flex items-center gap-2 sm:gap-1.5 bg-blue-600 px-3 py-2.5 rounded-xl text-white text-xs sm:text-xs shadow-md" onClick={() => {
                     setFilter(Allfilter);
                     navigate("/filter")
-                }}><Funnel size={18}/>اعمال فیلتر</button>
+                }}><Funnel size={18} />اعمال فیلتر</button>
                 <div className="relative">
                     <button onClick={(() => isopen === "year" ? setIsopen("") : setIsopen("year"))} className="flex items-center gap-1.5 sm:gap-2  text-xs sm:text-sm text-gray-700 bg-gray-100 px-3 py-2 rounded-xl shadow-md"><span className="text-gray-700"><CalendarDays size={21} /></span>سال</button>
-                        {isopen === "year" && (
+                    {isopen === "year" && (
                         <div className="absolute -translate-x-1/2 left-1/2 top-full flex flex-col gap-1 border border-gray-200 mt-2 px-3 py-2 rounded-xl shadow-lg">
-                            {[2022, 2023, 2024, 2025].map((item,index) => (
-                                <p key={index} className="text-xs text-gray-700 transition-all duration-300 hover:text-blue-600 hover:scale-105 active:scale-90">{item}</p>
+                            {[2022, 2023, 2024, 2025].map((item, index) => (
+                                <p key={index} className="text-xs text-gray-700 transition-all duration-300 hover:text-blue-600 hover:scale-105 active:scale-90 focus:text-blue-600" onClick={() => setYear(item)}>{item}</p>
                             ))}
                         </div>
-                        )} 
+                    )}
                 </div>
                 <div className="relative">
                     <button onClick={(() => isopen === "brand" ? setIsopen("") : setIsopen("brand"))} className="flex gap-1.5 sm:gap-2 items-center text-xs sm:text-sm text-gray-700 bg-gray-100 px-3 py-2 rounded-xl shadow-md"><span className="text-gray-700"><Tag size={18} /></span>برند</button>
                     {isopen === "brand" && (
-                        <div className="absolute top-full left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 border border-gray-200 rounded-lg shadow-lg mt-2 px-3 py-2 ">
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 border border-gray-200 rounded-lg shadow-lg mt-2 px-3 py-2">
                             {["ASUS", "Lenovo", "Dell", "HP", "Acer"].map((item, index) => (
 
                                 <p key={index} className="text-xs text-gray-700 transition-color transition-transform duration-300 hover:text-blue-600 hover:scale-95 active:scale-90">{item}</p>
@@ -103,14 +107,15 @@ function Header({input,setInput,filter,setFilter,Allfilter} : headerProps) {
                     <div>
                         {isopen === "Sorting" && (
                             <div className="absolute top-full -translate-x-1/2 left-1/2 w-full   mt-2 px-3 py-2 border border-gray-200 flex flex-col gap-1 rounded-xl">
-                                {["از پایین به بالا", "از بالا به پایین"].map((item,index) => (
+                                {["از پایین به بالا", "از بالا به پایین"].map((item, index) => (
                                     <p key={index} className="text-xs text-gray-700 transition-all duration-300 hover:text-blue-600 hover:scale-105 active:scale-95">{item}</p>
-                                )) }
+                                ))}
                             </div>
                         )}
                     </div>
                 </div>
             </div>
+
         </div>
     )
 }

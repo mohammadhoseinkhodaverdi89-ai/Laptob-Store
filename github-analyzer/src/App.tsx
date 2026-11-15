@@ -4,15 +4,18 @@ import { useState } from "react"
 import { laptops } from "./dataBase"
 import { Filter } from "lucide-react"
 import Productfilter from "./Header/Productfilter"
+import Footer from "../src/Footer/Footer"
 
 type LaptonInterface = typeof laptops
 
 function App() {
   const [input, setInput] = useState("")
   const [filtered,setFiltered] = useState<LaptonInterface>(laptops)
+  const [year,setYear] = useState()
     const Allfilter = () => (
     [...filtered].filter((item) => {
-      const filterInput = item.model.toLowerCase().includes(input.toLowerCase())
+      const filterInput = item.model.toLowerCase().includes(input.toLowerCase());
+      const filterYear = item.year === year;
       setInput("")
       return filterInput
     })
@@ -28,8 +31,11 @@ function App() {
             setInput={setInput}
             filter={filtered}
             setFilter={setFiltered}
+            year={year}
+            setYear={setYear}
             Allfilter={Allfilter}
           />
+          <Footer />
          </>
           } />
           <Route path="/filter" element={<Productfilter filtered={filtered} />}/>
