@@ -17,7 +17,7 @@ interface headerProps {
     input: string | null
     setInput: React.Dispatch<React.SetStateAction<string | null>>
 
-    filtered: Laptob
+    // filtered: Laptob
     setFiltered: React.Dispatch<React.SetStateAction<Laptob>>
 
     Allfilter: () => Laptob
@@ -31,7 +31,7 @@ interface headerProps {
     order: string 
     setOrder : React.Dispatch<React.SetStateAction<string>>
 }
-function Header({ input, setInput, filtered, setFiltered, Allfilter, year, setYear ,brand , setBrand ,order,setOrder }: headerProps) {
+function Header({ input, setInput, setFiltered, Allfilter, year, setYear ,brand , setBrand ,order,setOrder }: headerProps) {
     const [isopen, setIsopen] = useState<string | null>(null)
     const [count, setCount] = useState<number>(0)
     const navigate = useNavigate()

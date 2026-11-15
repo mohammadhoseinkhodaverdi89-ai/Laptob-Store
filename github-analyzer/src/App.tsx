@@ -37,7 +37,7 @@ function App() {
             <Header
             input={input}
             setInput={setInput}
-            filtered={filtered}
+            // filtered={filtered}
             setFiltered={setFiltered}
             year={year}
             setYear={setYear}
