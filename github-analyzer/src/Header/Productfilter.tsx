@@ -4,7 +4,7 @@ interface propsFilter {
     filtered : Laptobs
 }
 
-function Filter({filtered}):propsFilter {
+function Filter({filtered}:propsFilter) {
     return(
         <div>
             {filtered.map((item) => (

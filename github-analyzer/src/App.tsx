@@ -1,27 +1,24 @@
 import Header from "./Header/Header"
-import { BrowserRouter, Route, Routes, type LinkProps } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useState } from "react"
 import { laptops } from "./dataBase"
-import { Filter } from "lucide-react"
 import Productfilter from "./Header/Productfilter"
-import Footer from "../src/Footer/Footer"
+import Footer from "./Footer/Footer"
+import { Braces } from "lucide-react"
 
 type LaptonInterface = typeof laptops
 
 function App() {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState<null | string>(null);
   const [filtered,setFiltered] = useState<LaptonInterface>(laptops);
   const [year,setYear] = useState<number | null>(null);
   const [brand,setBrand] = useState<string | null>(null);
   const [order,setOrder] = useState<string>("ز بالا به پایین");
     const Allfilter = () => (
     [...filtered].filter((item) => {
-      const filterInput = item.model.toLowerCase().includes(input.toLowerCase());
-      const filterYear = item.year === year;
-      const filterBrand = item.brand === brand;
-      setInput("")
-      setYear(null)
-      setBrand(null)
+      const filterInput = item.model.toLowerCase().includes(String(input).toLowerCase());
+      const filterYear = year === null || item.year === year;
+      const filterBrand = brand === null || item.brand === brand;
       return filterInput && filterYear && filterBrand
     })
     .sort((a,b) => {
