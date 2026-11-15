@@ -10,6 +10,8 @@ function Filter({filtered}):propsFilter {
             {filtered.map((item) => (
                 <div key={item.id}>
                     <p>{item.model}</p>
+                    <p>{item.year}</p>
+                    <p>{item.price}</p>
                 </div>
             ))}
         </div>

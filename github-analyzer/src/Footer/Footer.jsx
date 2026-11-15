@@ -14,7 +14,7 @@ function Footer() {
             {items.map((item) => {
                 const Icon = item.icon
                 return (
-                    <div className="group flex flex-col items-center">
+                    <div className="group flex flex-col items-center" key={item.id}>
                         <p className="transition-all duration-300 group-hover:text-blue-600"><Icon className="transition-all duration-100 group-hover:fill-blue-600"/></p>
                         <p className="text-xs text-gray-800 flex flex-col items-center transition-colors duration-300 group-hover:text-blue-600">{item.title}</p>
                     </div>

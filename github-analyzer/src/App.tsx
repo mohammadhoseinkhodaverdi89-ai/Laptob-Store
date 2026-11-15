@@ -9,15 +9,27 @@ import Footer from "../src/Footer/Footer"
 type LaptonInterface = typeof laptops
 
 function App() {
-  const [input, setInput] = useState("")
-  const [filtered,setFiltered] = useState<LaptonInterface>(laptops)
-  const [year,setYear] = useState()
+  const [input, setInput] = useState("");
+  const [filtered,setFiltered] = useState<LaptonInterface>(laptops);
+  const [year,setYear] = useState<number | null>(null);
+  const [brand,setBrand] = useState<string | null>(null);
+  const [order,setOrder] = useState<string>("ز بالا به پایین");
     const Allfilter = () => (
     [...filtered].filter((item) => {
       const filterInput = item.model.toLowerCase().includes(input.toLowerCase());
       const filterYear = item.year === year;
+      const filterBrand = item.brand === brand;
       setInput("")
-      return filterInput
+      setYear(null)
+      setBrand(null)
+      return filterInput && filterYear && filterBrand
+    })
+    .sort((a,b) => {
+      if(order === "ز بالا به پایین") {
+        return a.price - b.price
+      }else{
+        return b.price - a.price
+      }
     })
   )
   return (
@@ -29,11 +41,15 @@ function App() {
             <Header
             input={input}
             setInput={setInput}
-            filter={filtered}
-            setFilter={setFiltered}
+            filtered={filtered}
+            setFiltered={setFiltered}
             year={year}
             setYear={setYear}
             Allfilter={Allfilter}
+            brand={brand}
+            setBrand={setBrand}
+            order={order}
+            setOrder={setOrder}
           />
           <Footer />
          </>

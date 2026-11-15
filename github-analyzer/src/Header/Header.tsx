@@ -9,7 +9,7 @@ import { Tag } from "lucide-react";
 import { ArrowUpDown } from "lucide-react";
 import photo1 from "./Photo/Neon Gaming Laptop on Rocky Ledge.png";
 import photo2 from "./Photo/Mylove.jpg"
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, type SetStateAction } from "react";
 import { laptops } from "../dataBase";
 import { useNavigate } from "react-router-dom";
 
@@ -23,10 +23,16 @@ interface headerProps {
 
     Allfilter: Laptob
 
-    year:number
-    setYear:React.Dispatch<React.SetStateAction<number>>
+    year: number
+    setYear: React.Dispatch<React.SetStateAction<number>>
+
+    brand : string
+    setBrand : React.Dispatch<React.SetStateAction<string>>
+
+    order: string
+    setOrder : React.Dispatch<React.SetStateAction<string>>
 }
-function Header({ input, setInput, filter, setFilter, Allfilter,year,setYear }: headerProps) {
+function Header({ input, setInput, filtered, setFiltered, Allfilter, year, setYear ,brand , setBrand ,order,setOrder }: headerProps) {
     const [isopen, setIsopen] = useState<string | null>(null)
     const [count, setCount] = useState<number>(0)
     const navigate = useNavigate()
@@ -78,15 +84,22 @@ function Header({ input, setInput, filter, setFilter, Allfilter,year,setYear }: 
             </div>
             <div className="relative flex flex-row-reverse items-center justify-between w-full h-full mt-4 px-2 sm:px-2">
                 <button className="flex items-center gap-2 sm:gap-1.5 bg-blue-600 px-3 py-2.5 rounded-xl text-white text-xs sm:text-xs shadow-md" onClick={() => {
-                    setFilter(Allfilter);
+                    setFiltered(Allfilter);
                     navigate("/filter")
                 }}><Funnel size={18} />اعمال فیلتر</button>
                 <div className="relative">
                     <button onClick={(() => isopen === "year" ? setIsopen("") : setIsopen("year"))} className="flex items-center gap-1.5 sm:gap-2  text-xs sm:text-sm text-gray-700 bg-gray-100 px-3 py-2 rounded-xl shadow-md"><span className="text-gray-700"><CalendarDays size={21} /></span>سال</button>
                     {isopen === "year" && (
                         <div className="absolute -translate-x-1/2 left-1/2 top-full flex flex-col gap-1 border border-gray-200 mt-2 px-3 py-2 rounded-xl shadow-lg">
-                            {[2022, 2023, 2024, 2025].map((item, index) => (
-                                <p key={index} className="text-xs text-gray-700 transition-all duration-300 hover:text-blue-600 hover:scale-105 active:scale-90 focus:text-blue-600" onClick={() => setYear(item)}>{item}</p>
+                            {[2022, 2023, 2024, 2025].map((item) => (
+                                <p
+                                    key={item}
+                                    className={`text-xs transition-all duration-300 hover:scale-105 active:scale-90
+                                    ${year === item ? "text-blue-600" : "text-gray-700"}`}
+                                    onClick={() => setYear(item)}
+                                >
+                                    {item}
+                                </p>
                             ))}
                         </div>
                     )}
@@ -97,7 +110,8 @@ function Header({ input, setInput, filter, setFilter, Allfilter,year,setYear }: 
                         <div className="absolute top-full left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 border border-gray-200 rounded-lg shadow-lg mt-2 px-3 py-2">
                             {["ASUS", "Lenovo", "Dell", "HP", "Acer"].map((item, index) => (
 
-                                <p key={index} className="text-xs text-gray-700 transition-color transition-transform duration-300 hover:text-blue-600 hover:scale-95 active:scale-90">{item}</p>
+                                <p key={index} className={`text-xs transition-color transition-transform duration-300 hover:text-blue-600 hover:scale-95 active:scale-90 
+                                ${brand === item ? "text-blue-600" : "text-gray-700"}`} onClick={() => setBrand(item)}>{item}</p>
                             ))}
                         </div>
                     )}
@@ -108,7 +122,8 @@ function Header({ input, setInput, filter, setFilter, Allfilter,year,setYear }: 
                         {isopen === "Sorting" && (
                             <div className="absolute top-full -translate-x-1/2 left-1/2 w-full   mt-2 px-3 py-2 border border-gray-200 flex flex-col gap-1 rounded-xl">
                                 {["از پایین به بالا", "از بالا به پایین"].map((item, index) => (
-                                    <p key={index} className="text-xs text-gray-700 transition-all duration-300 hover:text-blue-600 hover:scale-105 active:scale-95">{item}</p>
+                                    <p key={index} className={`text-xs transition-all duration-300 hover:text-blue-600 hover:scale-105 active:scale-95
+                                     ${order === item ? "text-blue-600" : "text-gray-700"}`} onClick={() => setOrder(item)}>{item}</p>
                                 ))}
                             </div>
                         )}
