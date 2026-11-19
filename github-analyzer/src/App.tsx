@@ -4,6 +4,7 @@ import { useState } from "react"
 import { laptops } from "./dataBase"
 import Productfilter from "./Header/Productfilter"
 import Footer from "./Footer/Footer"
+import Product from "./Product/Product"
 
 type LaptonInterface = typeof laptops
 
@@ -48,6 +49,7 @@ function App() {
             Allfilter={Allfilter}
           />
           <Footer />
+          <Product />
          </>
           } />
           <Route path="/filter" element={<Productfilter filtered={filtered} />}/>

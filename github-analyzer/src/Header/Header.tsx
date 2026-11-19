@@ -11,6 +11,7 @@ import photo2 from "./Photo/Mylove.jpg"
 import React, { useEffect, useState } from "react";
 import { laptops } from "../dataBase";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 type Laptob = typeof laptops
 interface headerProps {
@@ -62,8 +63,12 @@ function Header({ input, setInput, setFiltered, Allfilter, year, setYear ,brand 
                 <p className="absolute top-2 right-5 text-gray-700"><Search size={19} /></p>
             </div>
             <div className="overflow-hidden relative mt-2.5 px-1">
-                <img src={photos[count]} alt="laptob-photos" className="rounded-2xl aspect-video" />
-                <div className="flex flex-col gap-2 items-start absolute -translate-y-1/2 top-1/2 right-0 text-white px-3">
+                <motion.img
+                initial={{opacity : 0 , scale : 0.7}}
+                animate={{opacity : 1  , scale : 1}}
+                transition={{duration : 0.3}}
+                src={photos[count]} alt="laptob-photos" className="rounded-2xl aspect-video" />
+                <motion.div  className="flex flex-col gap-2 items-start absolute -translate-y-1/2 top-1/2 right-0 text-white px-3">
                     <p className="bg-gradient-to-r from-blue-500 to-purple-600 text-xs font-medium px-2 py-1 rounded-2xl">
                         قدرت بیشتر، تجربه بهتر
                     </p>
@@ -79,7 +84,7 @@ function Header({ input, setInput, setFiltered, Allfilter, year, setYear ,brand 
                     <p className="text-gray-300 text-xs leading-6">
                         انتخاب هوشمندانه برای کار، بازی و یادگیری
                     </p>
-                </div>
+                </motion.div>
             </div>
             <div className="relative flex flex-row-reverse items-center justify-between w-full h-full mt-4 px-2 sm:px-2">
                 <button className="flex items-center gap-2 sm:gap-1.5 bg-blue-600 px-3 py-2.5 rounded-xl text-white text-xs sm:text-xs shadow-md" onClick={() => {
