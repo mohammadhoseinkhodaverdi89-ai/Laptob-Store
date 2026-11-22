@@ -3,3 +3,4 @@
 @theme {
   --font-vazir: "Vazirmatn", sans-serif;
 }
+html, body { background-color: white; }
