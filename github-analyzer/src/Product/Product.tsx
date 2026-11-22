@@ -1,36 +1,41 @@
 import { laptops } from "../dataBase";
-import { useRef } from "react";
+import React, { useRef } from "react";
 function Product() {
-    const touchStart = useRef(0);
-    const touchEnd = useRef(0);
-    const containerRef = useRef(null);
-
-    const handleTouchStart  = (e : React.TouchEvent<HTMLDivElement>) => {
-        touchStart.current = e.touches[0].clientX
-    }
-    const handleTouchEnd = (e : React.TouchEvent<HTMLDivElement>) => {
-        touchEnd.current = e.changedTouches[0].clientX
-    }
-    const distance = touchStart.current - touchEnd.current
-
-    if(distance > 50) {
-        containerRef.current?.scrollBy({
-            left : 300,
-            behavior : "smoth"
-        })
-    }else if(distance <-50){
-        containerRef.current?.scrollBy({
-            left : -300,
-            behavior : "smoth"
-        })
-    }
     const result = laptops.slice(0, 10)
+    const touchStart = useRef(0);
+    const containerRef = useRef(null)
+
+    const handleStart = (e : React.TouchEvent) => {
+        touchStart.current = e.touches[0].clientX;
+    }
+    const handleMove = (e : React.TouchEvent) => {
+        const touchCurrent = e.touches[0].clientX;
+        const distance = touchStart.current - touchCurrent
+
+        containerRef.current?.scrollBy({
+            left : distance,
+            behavior : "auto"
+        })
+        touchStart.current = touchCurrent
+    }
+
     return (
-        <div className="overflow-hidden w-full">
-            <div className="flex gap-7">
+        <div className="overflow-x-auto w-full">
+            <div className="flex flex-row items-center gap-7"
+            ref={containerRef}
+            onTouchStart={handleStart}
+            onTouchMove={handleMove}
+            >
                 {result.map((item) => (
-                    <div key={item.id} className="w-[180px] shrink-0">
-                        <img src={item.photo} alt="" className="w-full" />
+                    <div key={item.id} className="flex flex-col items-center w-[180px] h-full shrink-0">
+                        <img src={item.photo} alt="" className="w-full h-full object-center object-contain aspect-[4/3]" />
+                        <p className="text-center text-sm text-blue-500 font-semibold">{item.brand}</p>
+                        <p className="text-center text-xs text-black font-semibold">{item.model}</p>
+                        <ul className="flex flex-row">
+                            <li>{item.cpu}</li>
+                            <li>{item.gpu}</li>
+                            <li>{item.ram}</li>
+                        </ul>
                     </div>
                 ))}
             </div>
