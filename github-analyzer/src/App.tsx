@@ -30,7 +30,7 @@ function App() {
     })
   )
   return (
-    <div className="w-full min-h-screen font-vazir" dir="rtl">
+    <div className="w-full min-h-screen font-vazir bg-white" dir="rtl">
       <BrowserRouter>
         <Routes>
           <Route path='/' element={
