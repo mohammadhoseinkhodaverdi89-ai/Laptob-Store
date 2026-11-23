@@ -20,10 +20,10 @@ function Product() {
                         </ul>
                         <div className="flex gap-4 items-center">
                             <p className="text-xs text-gray-700 flex items-center gap-0.5">{item.year}<CalendarDays size={18} /></p>
-                            <p className="text-xs text-gray-900 [word-spacing:4px]">{item.price.toLocaleString("fa-IR")}تومان </p>
+                            <p className="text-xs text-gray-900">{item.price.toLocaleString("fa-IR")}تومان </p>
                         </div>
 
-                        <button className="text-xs flex flex-row items-center gap-3 text-white bg-gray-800/90 px-3 py-1.5 rounded-lg"><ShoppingCart size={18} />افزودن به سبد خرید</button>
+                        <button className="text-xs flex flex-row items-center gap-3 text-white bg-gray-800/90 px-4 py-1.5 rounded-lg"><ShoppingCart size={18} />افزودن به سبد خرید</button>
                     </div>
                 ))}
             </div>
